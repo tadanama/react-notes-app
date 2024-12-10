@@ -14,7 +14,7 @@ const POST_URL = "http://localhost:3500/notes";
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
 	// Send a request to get all notes
 	const response = await axios.get(POST_URL);
-	// Return the data from the response that we got to the fulfilled reducers
+	// Return the data from the response that we got to the fulfilled reducers as the action payload
 	return response.data;
 });
 
@@ -26,6 +26,11 @@ const notesSlice = createSlice({
 		builder
 			.addCase(fetchNotes.pending, (state) => {
 				state.status = "Loading";
+			})
+			.addCase(fetchNotes.fulfilled, (state, action) => {
+				state.status = "succeeded";
+				// Add the fetched posts to the array
+				state.notes = state.notes.concat(action.payload);
 			});
 	},
 });
