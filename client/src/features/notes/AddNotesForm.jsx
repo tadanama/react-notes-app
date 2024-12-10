@@ -21,6 +21,9 @@ function AddNotesForm() {
 		setContent(value);
 	}
 
+	// Check if both title and content are filled in or not
+	const canCreate = Boolean(title) && Boolean(content);
+
 	return (
 		<>
 			<div className="form">
@@ -42,7 +45,7 @@ function AddNotesForm() {
 						value={content}
 						onChange={handleContentChange}
 					/>
-					<button>Create</button>
+					<button disabled={canCreate ? false : true}>Create</button>
 				</form>
 			</div>
 		</>
