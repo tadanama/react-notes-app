@@ -6,5 +6,5 @@ export const apiSlice = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3500" }),
     // Tags for caching
 	tagTypes: ["Notes"],
-	endpoints: (builder) => {},
+	endpoints: (builder) => ({}),
 });
