@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define notes initial state
-const initiaState = {
+const initialState = {
 	notes: [],
 	status: "idle", // "loading", "succeeded" or "failed"
 	error: null,
@@ -21,6 +22,7 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
 // Define the notes slice
 const notesSlice = createSlice({
 	name: "note",
+	initialState,
 	reducers: {},
 	extraReducers(builder) {
 		builder
@@ -36,6 +38,7 @@ const notesSlice = createSlice({
 				state.status = "failed";
 				// Set the error message in state
 				state.error = action.error.message;
+				console.log("Failed to fetch notes:", state.error);
 			});
 	},
 });
