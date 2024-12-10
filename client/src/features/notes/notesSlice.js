@@ -22,4 +22,15 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
 const notesSlice = createSlice({
 	name: "note",
 	reducers: {},
+	extraReducers(builder) {
+		builder
+			.addCase(fetchNotes.pending, (state) => {
+				state.status = "Loading";
+			});
+	},
 });
+
+// When an async thunk is dispatched, a lifecycle is started
+// It will be pending if is currently fetching the data
+// After successful data fetching it will be fulfilled
+// Otherwise, if an error occured it will be rejected
