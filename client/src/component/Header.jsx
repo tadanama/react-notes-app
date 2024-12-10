@@ -6,6 +6,7 @@ function Header() {
 			<h1>Notes</h1>
 			<nav>
 				<ul>
+					<li>Create note</li>
 					<li>My notes</li>
 				</ul>
 			</nav>
