@@ -3,32 +3,71 @@ body {
 	padding: 0;
 }
 
+/* Header style */
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-    background-color: #1E201E;
-    color: #EEEEEE;
-    padding-inline: 150px;
-    padding-block: 15px;
+	background-color: #1e201e;
+	color: #eeeeee;
+	padding-inline: 150px;
+	padding-block: 15px;
 }
 
-.header h1{
-    font-size: 2.5rem;
+.header h1 {
+	font-size: 2.5rem;
 }
 
 .header li {
-    font-size: 1.4rem;
+	font-size: 1.4rem;
 }
 
 ul li {
 	list-style: none;
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 ul {
-    display: flex;
-    gap: 1.6rem;
+	display: flex;
+	gap: 1.6rem;
 }
 
+/* Form style */
+.form {
+	max-width: 600px;
+	margin-inline: auto;
+}
+
+.form h2{
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+form input,
+form textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+textarea{
+    resize: none;
+}
+
+form button {
+    font-size: 1.25rem;
+    padding-block: 5px;
+    border-radius: 10px;
+}
