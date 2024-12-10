@@ -31,6 +31,11 @@ const notesSlice = createSlice({
 				state.status = "succeeded";
 				// Add the fetched posts to the array
 				state.notes = state.notes.concat(action.payload);
+			})
+			.addCase(fetchNotes.rejected, (state, action) => {
+				state.status = "failed";
+				// Set the error message in state
+				state.error = action.error.message;
 			});
 	},
 });
