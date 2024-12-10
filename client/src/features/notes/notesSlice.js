@@ -35,4 +35,5 @@ const notesSlice = apiSlice.injectEndpoints({
 	}),
 });
 
+// Export the generated hook from apiSlice
 export const { useGetNotesQuery } = notesSlice;
