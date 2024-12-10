@@ -28,7 +28,7 @@ function NotesList() {
 			}
 
 			return (
-				<div className="card">
+				<div className="card" key={note.id}>
 					<h3>{note.title}</h3>
 					<p>{noteBody}</p>
 					<span>{note.date}</span>
