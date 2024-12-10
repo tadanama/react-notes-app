@@ -6,3 +6,11 @@ const initiaState = {
 	status: "idle", // "loading", "succeeded" or "failed"
 	error: null,
 };
+
+// Define the notes slice
+const notesSlice = createSlice({
+    name: "note",
+    reducers: {
+
+    }
+})
