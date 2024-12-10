@@ -45,5 +45,10 @@ const notesSlice = createSlice({
 // After successful data fetching it will be fulfilled
 // Otherwise, if an error occured it will be rejected
 
+// Selectors
+export const selectAllNotes = (state) => state.note.notes; // Get all notes
+export const selectNotesStatus = (state) => state.note.status; //Get the status
+export const selectError = (state) => state.note.error; // Get the error
+
 // Export notes reducer to include in the store
 export default notesSlice.reducer;
