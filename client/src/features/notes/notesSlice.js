@@ -44,3 +44,6 @@ const notesSlice = createSlice({
 // It will be pending if is currently fetching the data
 // After successful data fetching it will be fulfilled
 // Otherwise, if an error occured it will be rejected
+
+// Export notes reducer to include in the store
+export default notesSlice.reducer;
