@@ -26,3 +26,9 @@ ul li {
     margin: 0;
     padding: 0;
 }
+
+ul {
+    display: flex;
+    gap: 1.6rem;
+}
+
