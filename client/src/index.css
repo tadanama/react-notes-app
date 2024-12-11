@@ -90,3 +90,18 @@ form button {
 .note-header-h2 {
 	margin-inline: 150px;
 }
+
+/* Full note */
+.full-note {
+	max-width: 800px;
+	margin-inline: auto;
+	margin-block: 50px;
+}
+
+.full-note h3{
+	font-size: 2rem;
+}
+
+.full-note p {
+	font-size: 1.4rem;
+}
