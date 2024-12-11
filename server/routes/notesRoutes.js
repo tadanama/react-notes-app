@@ -9,13 +9,16 @@ import {
 // Instantiate router
 const router = Router();
 
-// Get all notes
+// Route to get all notes
 router.get("/", getNotes);
 
+// Route to add new note
 router.post("/", addNewNote);
 
+// Route to update a note
 router.put("/:noteId", updateNote);
 
+// Route to delete a note
 router.delete("/:noteId", deleteNote);
 
 export default router;

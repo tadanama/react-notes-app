@@ -15,6 +15,7 @@ export const getNotes = async (req, res) => {
 	}
 };
 
+// Add a new note
 export const addNewNote = async (req, res) => {
 	// Get the note title and text
 	const { title, text } = req.body;
