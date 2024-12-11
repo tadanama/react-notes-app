@@ -12,6 +12,10 @@ function SingleNotePage() {
 	const singleNote = notes.find((note) => note.id === noteId);
 	console.log(singleNote);
 
+	if (!singleNote) {
+		return <p>Post not found</p>;
+	}
+
 	return (
 		<>
 			<div className="full-note">
