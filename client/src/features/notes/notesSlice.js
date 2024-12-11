@@ -31,6 +31,17 @@ export const addedNewNotes = createAsyncThunk(
 	}
 );
 
+export const updatedNote = createAsyncThunk(
+	"note/updatedNote",
+	async (note) => {
+		// Send patch request to update the post
+		// Must include the id in path parameter because the note is already exist
+		const response = await axios.patch(`${POST_URL}/${note.id}`, note);
+		// Return the response as the payload to the reducer
+		return response.data;
+	}
+);
+
 // Define the notes slice
 const notesSlice = createSlice({
 	name: "note",
@@ -65,6 +76,23 @@ const notesSlice = createSlice({
 			.addCase(addedNewNotes.rejected, (state, action) => {
 				state.status = "failed";
 				console.log("Failed to create new note", action.error.message);
+			})
+			.addCase(updatedNote.fulfilled, (state, action) => {
+				console.log("Update fulfilled");
+				if (!action.payload.id) {
+					console.log("Failed to update:", action.payload);
+					return;
+				}
+
+				// Get the id of the newly updated note
+				const { id } = action.payload;
+
+				// Filter the notes that did not update
+				const notes = state.notes.filter((note) => note.id !== id);
+
+				// Update the state
+				// Spread the array of objects that is not updated and add updated object
+				state.notes = [...notes, action.payload];
 			});
 	},
 });
