@@ -59,7 +59,7 @@ const notesSlice = createSlice({
 			.addCase(addedNewNotes.fulfilled, (state, action) => {
 				// Add the new post received as the action payload to the notes state
 				console.log(action.payload);
-                state.status = "succeeded"
+				state.status = "succeeded";
 				state.notes.push(action.payload);
 			})
 			.addCase(addedNewNotes.rejected, (state, action) => {
@@ -78,6 +78,8 @@ const notesSlice = createSlice({
 export const selectAllNotes = (state) => state.note.notes; // Get all notes
 export const selectNotesStatus = (state) => state.note.status; //Get the status
 export const selectError = (state) => state.note.error; // Get the error
+// export const selectNoteById = (state, noteId) =>
+// 	state.note.notes.find((note) => note.id === noteId); //! Get a specific note by id (NOT WORKING)
 
 // Export notes reducer to include in the store
 export default notesSlice.reducer;
