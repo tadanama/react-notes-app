@@ -43,7 +43,7 @@ function AddNotesForm() {
 			try {
                 // Dispatch the addedNewNotes async thunk
 				dispatch(
-					addedNewNotes({ id: 400, title, body: content, date: formattedDate })
+					addedNewNotes({ title, body: content, date: formattedDate })
 				).unwrap();
 
                 // Clear the input
