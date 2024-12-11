@@ -75,3 +75,36 @@ export const updateNote = async (req, res) => {
 		console.log(error);
 	}
 };
+
+// Delete a note
+export const deleteNote = async (req, res) => {
+	// Get the note id from req.params
+	const { noteId } = req.params;
+
+	// Check if note exist
+	try {
+		const foundPost = await pool.query(
+			"SELECT * FROM notes WHERE note_id = $1",
+			[noteId]
+		);
+
+		// Return error if note do not exist
+		if (!foundPost.rows) {
+			res.status(400);
+			return res.json("Note do not exist");
+		}
+
+		// Delete the note from database
+		try {
+			const result = await pool.query(
+				"DELETE FROM notes WHERE note_id = $1 RETURNING *",
+				[noteId]
+			);
+			res.json(result.rows[0]);
+		} catch (error) {
+			console.log(error);
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
