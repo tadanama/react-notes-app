@@ -7,10 +7,10 @@ function Header() {
 			<h1>Notes</h1>
 			<nav>
 				<ul>
-					<Link to={"/note"}>
+					<Link to={"/note"} style={{ textDecoration: "none" }}>
 						<li>Create note</li>
 					</Link>
-					<Link to={"/"}>
+					<Link to={"/"} style={{ textDecoration: "none" }}>
 						<li>My notes</li>
 					</Link>
 				</ul>
