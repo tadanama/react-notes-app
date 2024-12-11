@@ -1,16 +1,14 @@
 import { Router } from "express";
+import { getNotes } from "../controllers/notesController.js";
 
 // Instantiate router
 const router = Router();
 
-
-router.get("/", (req, res) => {
-	console.log("You are in /notes/ GET route");
-});
+// Get all notes
+router.get("/", getNotes);
 
 router.post("/", (req, res) => {
 	console.log("You are in /notes/ POST route");
 });
-
 
 export default router;
