@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { selectAllNotes, selectError, selectNotesStatus } from "./notesSlice";
 
@@ -12,7 +13,7 @@ function NotesList() {
 	// 	.slice()
 	// 	.sort((a, b) => b.date.localeCompare(a.date));
 
-    // Render different content based on the state status
+	// Render different content based on the state status
 	let content;
 	if (status === "loading") {
 		content = <p>Loading ...</p>;
@@ -20,7 +21,7 @@ function NotesList() {
 		content = notes.map((note) => {
 			let noteBody;
 
-            // Display only 90 characters of the notes body
+			// Display only 90 characters of the notes body
 			if (note.body.length > 90) {
 				noteBody = note.body.substring(0, 90) + "...";
 			} else {
@@ -31,6 +32,9 @@ function NotesList() {
 				<div className="card" key={note.id}>
 					<h3>{note.title}</h3>
 					<p>{noteBody}</p>
+					<Link to={`/note/${note.id}`}>
+						<span>View more</span>
+					</Link>
 					<span>{note.date}</span>
 				</div>
 			);
