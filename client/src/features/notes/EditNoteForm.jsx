@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAllNotes } from "./notesSlice";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllNotes, updatedNote } from "./notesSlice";
 
 function EditNoteForm() {
+	// Instantiate useDispatch
+	const dispatch = useDispatch();
+
+	// Instantiate useNavigate
+	const navigate = useNavigate();
+
 	// Get the note id from URL
 	const { noteId } = useParams();
 
@@ -31,7 +37,34 @@ function EditNoteForm() {
 	// Check if both inputs are filled
 	const canUpdate = Boolean(title) && Boolean(content);
 
-	function handleUpdateNote() {}
+	function handleUpdateNote(event) {
+		event.preventDefault();
+
+		if (canUpdate) {
+			try {
+				// Create current date in "DD/MM/YYYY" format
+				const currentDate = new Date();
+				const day = currentDate.getDate();
+				const month = currentDate.getMonth() + 1;
+				const year = currentDate.getFullYear();
+				const formattedDate = `${day}/${month}/${year}`;
+
+				// DIspatch updatedNotes async thunk
+				dispatch(
+					updatedNote({ id: noteId, title, body: content, date: formattedDate })
+				).unwrap();
+
+				// Clear the input
+				setTitle("");
+				setContent("");
+
+				// Redirect back to homepage
+				navigate("/");
+			} catch (error) {
+				console.log("Failed to update:", error);
+			}
+		}
+	}
 
 	return (
 		<>
