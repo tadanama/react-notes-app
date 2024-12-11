@@ -1,13 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
-import { selectAllNotes, selectError, selectNotesStatus } from "./notesSlice";
+import {
+	selectAllNotes,
+	selectError,
+	selectNotesStatus,
+	deletedNote,
+} from "./notesSlice";
 
 function NotesList() {
 	const notes = useSelector(selectAllNotes);
 	const status = useSelector(selectNotesStatus); // Get status when fetching the notes
 	const error = useSelector(selectError); // Get error message if an error has occured
+
+	// Instantiate useDispatch()
+	const dispatch = useDispatch();
+
+	// Instantiate useNavigate()
+	const navigate = useNavigate();
 
 	// const orderedNotes = notes
 	// 	.slice()
@@ -35,12 +46,26 @@ function NotesList() {
 					<Link to={`/note/${note.id}`}>
 						<span>View more</span>
 					</Link>
-					<span>{note.date}</span>
+					<span>{note.date} </span>
+					<button onClick={() => handleNoteDelete(note.id)}>
+						<span>Delete note</span>
+					</button>
 				</div>
 			);
 		});
 	} else if (status === "failed") {
 		content = <p>{error}</p>;
+	}
+
+	function handleNoteDelete(noteId) {
+		try {
+			// Dispatch the delete async thunk
+			dispatch(deletedNote({ id: noteId })).unwrap();
+
+			navigate("/");
+		} catch (error) {
+			console.log("Failed to delete note:", error);
+		}
 	}
 
 	return (
