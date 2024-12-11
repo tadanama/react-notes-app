@@ -21,7 +21,7 @@ function SingleNotePage() {
 			<div className="full-note">
 				<h3>{singleNote.title}</h3>
 				<p>{singleNote.body}</p>
-				<Link to={"/note/edit/:note:id"}>
+				<Link to={`/note/edit/${singleNote.id}`}>
 					<span>Edit</span>
 				</Link>
 				<span>{singleNote.date}</span>
