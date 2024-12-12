@@ -92,6 +92,8 @@ const notesSlice = createSlice({
 			})
 			.addCase(addedNewNotes.rejected, (state, action) => {
 				state.status = "failed";
+				// Set the error message in state
+				state.error = action.error.message;
 				console.log("Failed to create new note", action.error.message);
 			})
 			.addCase(updatedNote.fulfilled, (state, action) => {
