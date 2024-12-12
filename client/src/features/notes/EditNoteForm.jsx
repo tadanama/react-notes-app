@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllNotes, updatedNote } from "./notesSlice";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+
 function EditNoteForm() {
 	// Instantiate useDispatch
 	const dispatch = useDispatch();
@@ -59,33 +62,31 @@ function EditNoteForm() {
 
 	return (
 		<>
-			<div className="form">
-				<h2>New note</h2>
-				<form>
-					<label htmlFor="title">Title:</label>
-					<input
-						type="text"
-						name="title"
-						id="title"
-						value={title}
-						onChange={handleTitleChange}
-					/>
-					<label htmlFor="text">Content:</label>
-					<textarea
-						name="text"
-						id="text"
-						rows={"10"}
-						value={text}
-						onChange={handleTextChange}
-					/>
-					<button
-						disabled={canUpdate ? false : true}
-						onClick={handleUpdateNote}
-					>
-						Update
-					</button>
-				</form>
-			</div>
+			<form>
+				<input
+					type="text"
+					name="title"
+					value={title}
+					onChange={handleTitleChange}
+					placeholder="Note title..."
+				/>
+				<textarea
+					name="text"
+					rows={20}
+					value={text}
+					onChange={handleTextChange}
+					placeholder="Enter note here..."
+				></textarea>
+				<button
+					className={`floating-button ${
+						canUpdate ? "edit-icon" : "disabled-button"
+					}`}
+					onClick={handleUpdateNote}
+					disabled={canUpdate ? false : true}
+				>
+					<FontAwesomeIcon icon={faFloppyDisk} />
+				</button>
+			</form>
 		</>
 	);
 }
