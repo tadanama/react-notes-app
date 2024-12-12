@@ -92,10 +92,6 @@ form button {
 	border-radius: 10px;
 }
 
-.note-header-h2 {
-	margin-inline: 150px;
-}
-
 /* Full note */
 .full-note {
 	max-width: 800px;

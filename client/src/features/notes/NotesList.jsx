@@ -70,7 +70,6 @@ function NotesList() {
 
 	return (
 		<>
-			<h2 className="note-header-h2">Notes</h2>
 			<div className="card-container">{content}</div>
 		</>
 	);
