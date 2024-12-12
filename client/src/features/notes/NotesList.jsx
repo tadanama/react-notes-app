@@ -30,24 +30,24 @@ function NotesList() {
 		content = <p>Loading ...</p>;
 	} else if (status === "succeeded") {
 		content = notes.map((note) => {
-			let noteBody;
+			let noteText;
 
-			// Display only 90 characters of the notes body
-			if (note.body.length > 90) {
-				noteBody = note.body.substring(0, 90) + "...";
+			// Display only 90 characters of the note text
+			if (note.note_text.length > 90) {
+				noteText = note.note_text.substring(0, 90) + "...";
 			} else {
-				noteBody = note.body;
+				noteText = note.note_text;
 			}
 
 			return (
-				<div className="card" key={note.id}>
-					<h3>{note.title}</h3>
-					<p>{noteBody}</p>
-					<Link to={`/note/${note.id}`}>
+				<div className="card" key={note.note_id}>
+					<h3>{note.note_title}</h3>
+					<p>{noteText}</p>
+					<Link to={`/note/${note.note_id}`}>
 						<span>View more</span>
 					</Link>
-					<span>{note.date} </span>
-					<button onClick={() => handleNoteDelete(note.id)}>
+					<span>{note.created_date} </span>
+					<button onClick={() => handleNoteDelete(note.note_id)}>
 						<span>Delete note</span>
 					</button>
 				</div>
