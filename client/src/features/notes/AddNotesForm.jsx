@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { addedNewNotes } from "./notesSlice";
 
@@ -37,7 +39,6 @@ function AddNotesForm() {
 	// Dispatch the addedNewNotes async thunk
 	function handleCreateNote() {
 		if (canCreate) {
-
 			try {
 				// Dispatch the addedNewNotes async thunk
 				dispatch(addedNewNotes({ title, text })).unwrap();
@@ -47,7 +48,7 @@ function AddNotesForm() {
 				setText("");
 
 				// Navigate back to the notes list
-				navigate("/")
+				navigate("/");
 			} catch (error) {
 				console.log("Error when creating new note:", error);
 			}
@@ -56,33 +57,31 @@ function AddNotesForm() {
 
 	return (
 		<>
-			<div className="form">
-				<h2>New note</h2>
-				<form>
-					<label htmlFor="title">Title:</label>
-					<input
-						type="text"
-						name="title"
-						id="title"
-						value={title}
-						onChange={handleTitleChange}
-					/>
-					<label htmlFor="text">Content:</label>
-					<textarea
-						name="text"
-						id="text"
-						rows={"10"}
-						value={text}
-						onChange={handleTextChange}
-					/>
-					<button
-						disabled={canCreate ? false : true}
-						onClick={handleCreateNote}
-					>
-						Create
-					</button>
-				</form>
-			</div>
+			<form>
+				<input
+					type="text"
+					name="title"
+					value={title}
+					onChange={handleTitleChange}
+					placeholder="Note title..."
+				/>
+				<textarea
+					name="text"
+					rows={20}
+					value={text}
+					onChange={handleTextChange}
+					placeholder="Enter note here..."
+				></textarea>
+				<button
+					className={`floating-button ${
+						canCreate ? "add-icon" : "disabled-button"
+					}`}
+					onClick={handleCreateNote}
+					disabled={canCreate ? false : true}
+				>
+					<FontAwesomeIcon icon={faPlus} />
+				</button>
+			</form>
 		</>
 	);
 }
