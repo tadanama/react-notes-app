@@ -17,8 +17,8 @@ export const getNotes = async (req, res) => {
 
 // Add a new note
 export const addNewNote = async (req, res) => {
-	// Get the note title and text
-	const { title, text } = req.body;
+	// Get the note title, text and date
+	const { title, text, date } = req.body;
 
 	// Generate new id
 	const newNoteId = uuidv4();
@@ -27,8 +27,8 @@ export const addNewNote = async (req, res) => {
 	//TODO remove the hard coded id when authentication is implemented
 	try {
 		const result = await pool.query(
-			"INSERT INTO notes (note_id, note_title, note_text, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-			[newNoteId, title, text, "1"]
+			"INSERT INTO notes (note_id, note_title, note_text, created_date, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+			[newNoteId, title, text, date, "1"]
 		);
 
 		// Send the newly created note
