@@ -19,7 +19,7 @@ function EditNoteForm() {
 
 	// Define the state for the inputs
 	const [title, setTitle] = useState(singleNote.title);
-	const [content, setContent] = useState(singleNote.body);
+	const [text, setText] = useState(singleNote.body);
 
 	// Let react manage the state of the inputs
 	function handleTitleChange(event) {
@@ -28,14 +28,14 @@ function EditNoteForm() {
 		setTitle(value);
 	}
 
-	function handleContentChange(event) {
+	function handleTextChange(event) {
 		const { value } = event.target;
 
-		setContent(value);
+		setText(value);
 	}
 
 	// Check if both inputs are filled
-	const canUpdate = Boolean(title) && Boolean(content);
+	const canUpdate = Boolean(title) && Boolean(text);
 
 	function handleUpdateNote(event) {
 		event.preventDefault();
@@ -49,14 +49,14 @@ function EditNoteForm() {
 				const year = currentDate.getFullYear();
 				const formattedDate = `${day}/${month}/${year}`;
 
-				// DIspatch updatedNotes async thunk
+				// Dispatch updatedNotes async thunk
 				dispatch(
-					updatedNote({ id: noteId, title, body: content, date: formattedDate })
+					updatedNote({ id: noteId, title, body: text, date: formattedDate })
 				).unwrap();
 
 				// Clear the input
 				setTitle("");
-				setContent("");
+				setText("");
 
 				// Redirect back to homepage
 				navigate("/");
@@ -79,13 +79,13 @@ function EditNoteForm() {
 						value={title}
 						onChange={handleTitleChange}
 					/>
-					<label htmlFor="content">Content:</label>
+					<label htmlFor="text">Content:</label>
 					<textarea
-						name="content"
-						id="content"
+						name="text"
+						id="text"
 						rows={"10"}
-						value={content}
-						onChange={handleContentChange}
+						value={text}
+						onChange={handleTextChange}
 					/>
 					<button
 						disabled={canUpdate ? false : true}
