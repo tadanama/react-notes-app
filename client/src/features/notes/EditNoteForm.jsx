@@ -42,17 +42,8 @@ function EditNoteForm() {
 
 		if (canUpdate) {
 			try {
-				// Create current date in "DD/MM/YYYY" format
-				const currentDate = new Date();
-				const day = currentDate.getDate();
-				const month = currentDate.getMonth() + 1;
-				const year = currentDate.getFullYear();
-				const formattedDate = `${day}/${month}/${year}`;
-
 				// Dispatch updatedNotes async thunk
-				dispatch(
-					updatedNote({ id: noteId, title, body: text, date: formattedDate })
-				).unwrap();
+				dispatch(updatedNote({ id: noteId, title, text })).unwrap();
 
 				// Clear the input
 				setTitle("");
