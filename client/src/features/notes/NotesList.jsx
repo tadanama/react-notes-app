@@ -50,7 +50,9 @@ function NotesList() {
 			return (
 				<div className="card" key={note.note_id}>
 					<div className="card-header">
-						<h3>{noteTitle}</h3>
+						<Link to={`/note/edit/${note.note_id}`}>
+							<h3>{noteTitle}</h3>
+						</Link>
 						<p>{noteText}</p>
 					</div>
 					<div className="card-footer">
