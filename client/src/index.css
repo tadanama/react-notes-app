@@ -41,42 +41,67 @@ ul {
 }
 
 /* Form style */
-.form {
-	max-width: 600px;
-	margin-inline: auto;
-}
-
-.form h2 {
-	font-size: 2.5rem;
-	margin-bottom: 30px;
-}
 
 form {
+	max-width: 600px;
+	margin-inline: auto;
+	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
-}
-
-form label {
-	font-size: 1.5rem;
-	margin-bottom: 15px;
+	position: relative;
 }
 
 form input,
 form textarea {
-	margin-bottom: 20px;
-	padding: 10px;
+	padding: 15px 20px;
+	border: none;
+	background-color: #dddddd;
+	color: #666666;
+}
+
+form input {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.24);
 	font-size: 20px;
-	border-radius: 10px;
+	font-weight: 500;
+	border-radius: 15px 15px 0px 0px;
 }
 
-textarea {
+form textarea {
+	font-size: 16px;
 	resize: none;
+	border-radius: 0px 0px 15px 15px;
+	line-height: 1.4;
 }
 
-form button {
-	font-size: 1.25rem;
-	padding-block: 5px;
-	border-radius: 10px;
+form input:focus,
+form textarea {
+	outline: none;
+}
+
+.floating-button {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	font-size: 25px;
+	padding: 15px 20px;
+	border-radius: 50%;
+	border: none;
+}
+
+.add-icon {
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.add-icon:hover {
+	background-color: #04aa6de7;
+	color: white;
+}
+
+.disabled-button {
+	background-color: gray;
 }
 
 /* Notes card */
