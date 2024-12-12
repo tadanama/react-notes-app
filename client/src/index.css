@@ -173,6 +173,10 @@ a {
 	transition: 0.3s;
 }
 
+a:hover {
+	text-decoration: underline;
+}
+
 /* Full note */
 .full-note {
 	max-width: 800px;
