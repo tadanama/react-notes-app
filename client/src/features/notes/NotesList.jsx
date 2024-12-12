@@ -31,25 +31,36 @@ function NotesList() {
 	} else if (status === "succeeded") {
 		content = notes.map((note) => {
 			let noteText;
+			let noteTitle;
 
-			// Display only 90 characters of the note text
-			if (note.note_text.length > 90) {
-				noteText = note.note_text.substring(0, 90) + "...";
+			// Display only 134 characters of the note text
+			if (note.note_text.length > 134) {
+				noteText = note.note_text.substring(0, 135) + "...";
 			} else {
 				noteText = note.note_text;
 			}
 
+			// Display only 20 characters of the note title
+			if (note.note_title.length > 20) {
+				noteTitle = note.note_title.substring(0, 21) + "...";
+			} else {
+				noteTitle = note.note_title;
+			}
+
 			return (
 				<div className="card" key={note.note_id}>
-					<h3>{note.note_title}</h3>
-					<p>{noteText}</p>
-					<Link to={`/note/${note.note_id}`}>
-						<span>View more</span>
-					</Link>
-					<span>{note.created_date} </span>
-					<button onClick={() => handleNoteDelete(note.note_id)}>
-						<span>Delete note</span>
-					</button>
+					<div className="card-header">
+						<h3>{noteTitle}</h3>
+						<p>{noteText}</p>
+					</div>
+					<div className="card-footer">
+						<span className="card-date">
+							{note.created_date.split("T")[0]}{" "}
+						</span>
+						<button onClick={() => handleNoteDelete(note.note_id)}>
+							<span>Delete note</span>
+						</button>
+					</div>
 				</div>
 			);
 		});
