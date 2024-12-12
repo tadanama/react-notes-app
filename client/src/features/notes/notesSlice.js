@@ -8,7 +8,7 @@ const initialState = {
 	error: null,
 };
 
-const POST_URL = "http://localhost:3500/notes";
+const POST_URL = "http://localhost:3000/notes";
 
 // Fetch notes from API
 // Can be done by using async thunk
