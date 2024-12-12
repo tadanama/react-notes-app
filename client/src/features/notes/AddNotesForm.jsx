@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addedNewNotes } from "./notesSlice";
 
@@ -10,6 +11,9 @@ function AddNotesForm() {
 
 	// Instantiate useDispatch
 	const dispatch = useDispatch();
+
+	// Instantiate useNavigate
+	const navigate = useNavigate();
 
 	function handleTitleChange(event) {
 		// Get the value of the title input text
@@ -41,6 +45,9 @@ function AddNotesForm() {
 				// Clear the input
 				setTitle("");
 				setText("");
+
+				// Navigate back to the notes list
+				navigate("/")
 			} catch (error) {
 				console.log("Error when creating new note:", error);
 			}
