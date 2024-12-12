@@ -88,7 +88,8 @@ form textarea {
 	border: none;
 }
 
-.add-icon {
+.add-icon,
+.edit-icon {
 	background-color: black;
 	color: white;
 	cursor: pointer;
@@ -97,6 +98,11 @@ form textarea {
 
 .add-icon:hover {
 	background-color: #04aa6de7;
+	color: white;
+}
+
+.edit-icon:hover {
+	background-color: #008cba;
 	color: white;
 }
 
