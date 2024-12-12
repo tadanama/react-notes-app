@@ -6,7 +6,7 @@ import { addedNewNotes } from "./notesSlice";
 function AddNotesForm() {
 	// Let react track the state of the form below
 	const [title, setTitle] = useState("");
-	const [content, setContent] = useState("");
+	const [text, setText] = useState("");
 
 	// Instantiate useDispatch
 	const dispatch = useDispatch();
@@ -19,16 +19,16 @@ function AddNotesForm() {
 		setTitle(value);
 	}
 
-	function handleContentChange(event) {
-		// Get the value of the content textarea
+	function handleTextChange(event) {
+		// Get the value of the text textarea
 		const { value } = event.target;
 
-		// Set the content state to the textarea value
-		setContent(value);
+		// Set the text state to the textarea value
+		setText(value);
 	}
 
-	// Check if both title and content are filled in or not
-	const canCreate = Boolean(title) && Boolean(content);
+	// Check if both title and text are filled in or not
+	const canCreate = Boolean(title) && Boolean(text);
 
 	// Dispatch the addedNewNotes async thunk
 	function handleCreateNote() {
@@ -43,12 +43,12 @@ function AddNotesForm() {
 			try {
                 // Dispatch the addedNewNotes async thunk
 				dispatch(
-					addedNewNotes({ title, body: content, date: formattedDate })
+					addedNewNotes({ title, body: text, date: formattedDate })
 				).unwrap();
 
                 // Clear the input
 				setTitle("");
-				setContent("");
+				setText("");
 			} catch (error) {
 				console.log("Error when creating new note:", error);
 			}
@@ -68,13 +68,13 @@ function AddNotesForm() {
 						value={title}
 						onChange={handleTitleChange}
 					/>
-					<label htmlFor="content">Content:</label>
+					<label htmlFor="text">Content:</label>
 					<textarea
-						name="content"
-						id="content"
+						name="text"
+						id="text"
 						rows={"10"}
-						value={content}
-						onChange={handleContentChange}
+						value={text}
+						onChange={handleTextChange}
 					/>
 					<button
 						disabled={canCreate ? false : true}
