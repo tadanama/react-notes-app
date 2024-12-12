@@ -33,12 +33,6 @@ function AddNotesForm() {
 	// Dispatch the addedNewNotes async thunk
 	function handleCreateNote() {
 		if (canCreate) {
-			// Create current date in "DD/MM/YYYY" format
-			const currentDate = new Date();
-			const day = currentDate.getDate();
-			const month = currentDate.getMonth() + 1;
-			const year = currentDate.getFullYear();
-			const formattedDate = `${day}/${month}/${year}`;
 
 			try {
 				// Dispatch the addedNewNotes async thunk
