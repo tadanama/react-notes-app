@@ -49,12 +49,15 @@ export const deletedNote = createAsyncThunk(
 		const { id } = noteToDeleteId;
 		// Send delete request
 		const response = await axios.delete(`${POST_URL}/${id}`);
-		// Return the response to the reducer
+
+		// Return the response to the reducer if status is 200
 		if (response.status === 200) {
 			console.log("Delete request was successful");
-			return noteToDeleteId;
+			return response.data;
 		}
 
+		// If response status is not 200
+		// Return the status and text to the reducer
 		return `${response.status}: ${response.statusText}`;
 	}
 );
@@ -115,17 +118,19 @@ const notesSlice = createSlice({
 			})
 			.addCase(deletedNote.fulfilled, (state, action) => {
 				state.status = "succeeded";
-				if (!action.payload.id) {
-					console.log("Failed to delete note");
+				if (!action.payload.note_id) {
+					console.log("Failed to delete note", action.payload);
 					console.log(action.payload);
 					return;
 				}
 
 				// Get the id of the deleted post give from async thunk
-				const { id } = action.payload;
+				const { note_id } = action.payload;
 
 				// Filter the notes away from the deleted post by using it's id
-				const fileredNote = state.notes.filter((note) => note.id !== id);
+				const fileredNote = state.notes.filter(
+					(note) => note.note_id !== note_id
+				);
 				state.notes = fileredNote;
 			});
 	},
