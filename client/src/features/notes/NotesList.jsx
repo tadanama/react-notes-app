@@ -2,6 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 import {
 	selectAllNotes,
 	selectError,
@@ -59,8 +62,11 @@ function NotesList() {
 						<span className="card-date">
 							{note.created_date.split("T")[0]}{" "}
 						</span>
-						<button onClick={() => handleNoteDelete(note.note_id)}>
-							<span>Delete note</span>
+						<button
+							onClick={() => handleNoteDelete(note.note_id)}
+							className="delete-icon"
+						>
+							<FontAwesomeIcon icon={faTrash} />
 						</button>
 					</div>
 				</div>
