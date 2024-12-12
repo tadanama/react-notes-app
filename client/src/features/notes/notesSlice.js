@@ -34,9 +34,9 @@ export const addedNewNotes = createAsyncThunk(
 export const updatedNote = createAsyncThunk(
 	"note/updatedNote",
 	async (note) => {
-		// Send patch request to update the post
+		// Send PUT request to update the post
 		// Must include the id in path parameter because the note is already exist
-		const response = await axios.patch(`${POST_URL}/${note.id}`, note);
+		const response = await axios.put(`${POST_URL}/${note.id}`, note);
 		// Return the response as the payload to the reducer
 		return response.data;
 	}
@@ -98,16 +98,16 @@ const notesSlice = createSlice({
 			})
 			.addCase(updatedNote.fulfilled, (state, action) => {
 				console.log("Update fulfilled");
-				if (!action.payload.id) {
+				if (!action.payload.note_id) {
 					console.log("Failed to update:", action.payload);
 					return;
 				}
 
 				// Get the id of the newly updated note
-				const { id } = action.payload;
+				const { note_id } = action.payload;
 
 				// Filter the notes that did not update
-				const notes = state.notes.filter((note) => note.id !== id);
+				const notes = state.notes.filter((note) => note.note_id !== note_id);
 
 				// Update the state
 				// Spread the array of objects that is not updated and add updated object
