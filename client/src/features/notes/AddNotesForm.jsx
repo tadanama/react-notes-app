@@ -41,12 +41,10 @@ function AddNotesForm() {
 			const formattedDate = `${day}/${month}/${year}`;
 
 			try {
-                // Dispatch the addedNewNotes async thunk
-				dispatch(
-					addedNewNotes({ title, body: text, date: formattedDate })
-				).unwrap();
+				// Dispatch the addedNewNotes async thunk
+				dispatch(addedNewNotes({ title, text })).unwrap();
 
-                // Clear the input
+				// Clear the input
 				setTitle("");
 				setText("");
 			} catch (error) {
