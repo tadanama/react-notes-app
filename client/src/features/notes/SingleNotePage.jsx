@@ -20,7 +20,7 @@ function SingleNotePage() {
 		<>
 			<div className="full-note">
 				<h3>{singleNote.note_title}</h3>
-				<p>{singleNote.note_body}</p>
+				<p>{singleNote.note_text}</p>
 				<Link to={`/note/edit/${singleNote.note_id}`}>
 					<span>Edit</span>
 				</Link>
