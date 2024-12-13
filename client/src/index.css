@@ -190,3 +190,10 @@ a:hover {
 .full-note p {
 	font-size: 1.4rem;
 }
+
+h2.message{
+	margin-inline: auto;
+	margin-top: 20px;
+	font-weight: 400;
+	color: gray;
+}
