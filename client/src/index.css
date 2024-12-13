@@ -40,7 +40,7 @@ ul {
 	gap: 1.6rem;
 }
 
-/* Form style */
+/* Note form style */
 
 form {
 	max-width: 600px;
@@ -51,30 +51,30 @@ form {
 	position: relative;
 }
 
-form input,
-form textarea {
+form.note-form input,
+form.note-form textarea {
 	padding: 15px 20px;
 	border: none;
 	background-color: #dddddd;
 	color: #666666;
 }
 
-form input {
+form.note-form input {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.24);
 	font-size: 20px;
 	font-weight: 500;
 	border-radius: 15px 15px 0px 0px;
 }
 
-form textarea {
+form.note-form textarea {
 	font-size: 16px;
 	resize: none;
 	border-radius: 0px 0px 15px 15px;
 	line-height: 1.4;
 }
 
-form input:focus,
-form textarea {
+form.note-form input:focus,
+form.note-form textarea {
 	outline: none;
 }
 

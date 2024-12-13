@@ -62,7 +62,7 @@ function AddNotesForm() {
 
 	return (
 		<>
-			<form>
+			<form className="note-form">
 				<input
 					type="text"
 					name="title"

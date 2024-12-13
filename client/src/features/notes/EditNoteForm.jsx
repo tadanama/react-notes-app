@@ -68,7 +68,7 @@ function EditNoteForm() {
 
 	return (
 		<>
-			<form>
+			<form className="note-form">
 				<input
 					type="text"
 					name="title"
