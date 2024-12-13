@@ -32,8 +32,8 @@ export async function login(req, res) {
 			// Define user info to embed into the token as payload
 			const userInfo = {
 				id: foundUser.rows[0].user_id,
-				username: foundUser.rows[0].user_username,
 				email: foundUser.rows[0].user_email,
+				username: foundUser.rows[0].username,
 			};
 
 			// Get the token from helper function below
