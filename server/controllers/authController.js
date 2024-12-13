@@ -114,7 +114,54 @@ export async function signup(req, res) {
 }
 
 // Refresh controller
-export function refresh(req, res) {}
+export function refresh(req, res) {
+	// Get the cookies from the request object
+	const cookies = req.cookies;
+
+	// Return error if no cookie with name 'jwt'
+	// Cookie with name 'jwt' is the refresh token
+	if (!cookies?.jwt) return res.status(401).json("Unauthorized");
+
+	const refreshToken = cookies.jwt;
+
+	// Verify the refresh token
+	jwt.verify(
+		refreshToken,
+		process.env.REFRESH_TOKEN_SECRET,
+		async (error, decoded) => {
+			// If error means the token is invalid or expired
+			// Return error
+			if (error) return res.status(403).json("Invalid token");
+
+			// Check if the decoded user email payload exist in database
+			try {
+				const foundUser = await pool.query(
+					"SELECT * FROM users WHERE user_email = $1",
+					[decoded.email]
+				);
+
+				// Return error if user do not exist
+				if (foundUser.rowCount === 0)
+					return res.status(401).json("Unauthorized");
+
+				// Create new user info to embed as token payload
+				const userInfo = {
+					id: foundUser.rows[0].user_id,
+					email: foundUser.rows[0].user_email,
+					username: decodefoundUser.rows[0].username,
+				};
+
+				// Generate a new access token and send as json response
+				const accessToken = generateAccessToken(userInfo);
+				res.json({ accessToken });
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	);
+
+	//
+}
 
 //  Logout controller
 export function logout(req, res) {}
