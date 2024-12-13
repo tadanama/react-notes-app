@@ -23,20 +23,30 @@ function NotesList() {
 	// Instantiate useNavigate()
 	const navigate = useNavigate();
 
-	// const orderedNotes = notes
-	// 	.slice()
-	// 	.sort((a, b) => b.date.localeCompare(a.date));
-
 	// Render different content based on the state status
 	let content;
+
 	if (status === "loading") {
+
 		content = <p>Loading ...</p>;
+
 	} else if (status === "succeeded") {
+
 		// Display a message when user has no notes
 		if (notes.length === 0) {
-			content = <h2 className="message">You have no notes. Click create note</h2>;
+
+			content = (
+				<h2 className="message">You have no notes. Click create note</h2>
+			);
+
 		} else {
-			content = notes.map((note) => {
+			
+			// Sort the notes
+			const sortedNote = notes.slice().sort((a, b) =>
+				b.created_date.localeCompare(a.created_date)
+			);
+
+			content = sortedNote.map((note) => {
 				let noteText;
 				let noteTitle;
 
