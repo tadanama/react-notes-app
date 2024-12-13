@@ -1,5 +1,6 @@
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -13,5 +14,8 @@ app.use(cors());
 
 // Handles all request made to /notes endpoint
 app.use("/notes", notesRoutes);
+
+// Handles all request made to /auth endpoint
+app.use("/auth", authRoutes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
