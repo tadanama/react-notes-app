@@ -164,7 +164,18 @@ export function refresh(req, res) {
 }
 
 //  Logout controller
-export function logout(req, res) {}
+export function logout(req, res) {
+	// Get cookies from request object
+	const cookies = req.cookies;
+
+	// If there is no cookies name 'jwt'
+	// Send a 204 no content response
+	if (!cookies?.jwt) return res.sendStatus(204);
+
+	// Clear the refresh token cookie
+	// Must pass same options when creating cookie
+	res.clearCookie("jwt", { httpOnly: true });
+}
 
 // Helper function to generate access token
 function generateAccessToken(payload) {
