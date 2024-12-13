@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
 
 import { pool } from "../db";
 
@@ -55,7 +56,62 @@ export async function login(req, res) {
 }
 
 // Signup controller
-export function signup(req, res) {}
+export async function signup(req, res) {
+	// Get the user registration info from client
+	const { email, username, password, confirmPassword } = req.body;
+
+	// Check if the password and confirm password matches
+	if (password !== confirmPassword)
+		return res.status(400).json("Password did not match");
+
+	// Check if email exist in database
+	try {
+		const foundEmail = await pool.query(
+			"SELECT * FROM users WHERE email = $1",
+			[email]
+		);
+
+		// Return error if email already exist
+		if (foundEmail.rowCount !== 0)
+			return res.status(400).json("Invalid EMAIL or password");
+
+		// Encrypt the user password
+		const hashedPassword = await bcrypt.hash(password, 10);
+
+		// Add new user to database
+		try {
+			// Generate new user id
+			const id = uuidv4();
+
+			const newUser = await pool.query(
+				"INSERT INTO users VALUES ($1, $2, $3, $4) RETURNING user_id, user_email, username",
+				[id, email, username, hashedPassword]
+			);
+
+			// User info to embed into jwt as payload
+			const userInfo = {
+				id: newUser.rows[0].user_id,
+				email: newUser.rows[0].user_email,
+				username: newUser.rows[0].username,
+			};
+
+			// Generate access and refresh token
+			const accessToken = generateAccessToken(userInfo);
+			const refreshToken = generateRefreshToken(userInfo);
+
+			// Send refresh token as httponly cookie
+			// Cookie expiration should match with refresh token
+			res.cookie("jwt", refreshToken, { maxAge: 30000 });
+
+			// Send access token as json response
+			return res.json({ accessToken });
+		} catch (error) {
+			console.log(error);
+		}
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 // Refresh controller
 export function refresh(req, res) {}
