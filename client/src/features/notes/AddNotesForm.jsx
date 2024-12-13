@@ -40,8 +40,10 @@ function AddNotesForm() {
 	function handleCreateNote() {
 		if (canCreate) {
 			try {
-				// Get current date in ISO string format
-				const currentDate = new Date().toISOString();
+				// Get current local time date in ISO string format
+				const date = new Date();
+				date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
+				const currentDate = date.toISOString().split("Z")[0];
 
 				// Dispatch the addedNewNotes async thunk
 				dispatch(addedNewNotes({ title, text, date: currentDate })).unwrap();
