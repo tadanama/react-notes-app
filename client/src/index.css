@@ -110,6 +110,36 @@ form.note-form textarea {
 	background-color: gray;
 }
 
+/* Auth form */
+.auth-h1 {
+	max-width: 600px;
+	margin-inline: auto;
+	margin-top: 80px;
+	font-size: 40px;
+}
+
+form.auth-form label {
+	margin-bottom: 15px;
+}
+
+form.auth-form input {
+	padding: 10px 15px;
+	font-size: 20px;
+	border-radius: 15px;
+	border: 1px solid gray;
+}
+
+form.auth-form button {
+	font-size: 20px;
+	font-weight: 500;
+	margin-top: 30px;
+	padding: 10px 15px;
+	border-radius: 15px;
+	border: none;
+	background-color: #0069d9;
+	color: white;
+}
+
 /* Notes card */
 .card-container {
 	margin-inline: 150px;
