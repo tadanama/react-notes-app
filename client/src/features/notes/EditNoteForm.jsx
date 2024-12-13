@@ -45,13 +45,14 @@ function EditNoteForm() {
 
 		if (canUpdate) {
 			try {
+
 				// Get current local time date in ISO string format
 				const date = new Date();
 				date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
 				const currentDate = date.toISOString().split("Z")[0];
 
 				// Dispatch updatedNotes async thunk
-				dispatch(updatedNote({ id: noteId, title, text })).unwrap();
+				dispatch(updatedNote({ id: noteId, title, text, date: currentDate })).unwrap();
 
 				// Clear the input
 				setTitle("");
