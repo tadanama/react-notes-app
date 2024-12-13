@@ -32,46 +32,51 @@ function NotesList() {
 	if (status === "loading") {
 		content = <p>Loading ...</p>;
 	} else if (status === "succeeded") {
-		content = notes.map((note) => {
-			let noteText;
-			let noteTitle;
+		// Display a message when user has no notes
+		if (notes.length === 0) {
+			content = <h2 className="message">You have no notes. Click create note</h2>;
+		} else {
+			content = notes.map((note) => {
+				let noteText;
+				let noteTitle;
 
-			// Display only 134 characters of the note text
-			if (note.note_text.length > 134) {
-				noteText = note.note_text.substring(0, 135) + "...";
-			} else {
-				noteText = note.note_text;
-			}
+				// Display only 134 characters of the note text
+				if (note.note_text.length > 134) {
+					noteText = note.note_text.substring(0, 135) + "...";
+				} else {
+					noteText = note.note_text;
+				}
 
-			// Display only 20 characters of the note title
-			if (note.note_title.length > 20) {
-				noteTitle = note.note_title.substring(0, 21) + "...";
-			} else {
-				noteTitle = note.note_title;
-			}
+				// Display only 20 characters of the note title
+				if (note.note_title.length > 20) {
+					noteTitle = note.note_title.substring(0, 21) + "...";
+				} else {
+					noteTitle = note.note_title;
+				}
 
-			return (
-				<div className="card" key={note.note_id}>
-					<div className="card-header">
-						<Link to={`/note/edit/${note.note_id}`}>
-							<h3>{noteTitle}</h3>
-						</Link>
-						<p>{noteText}</p>
+				return (
+					<div className="card" key={note.note_id}>
+						<div className="card-header">
+							<Link to={`/note/edit/${note.note_id}`}>
+								<h3>{noteTitle}</h3>
+							</Link>
+							<p>{noteText}</p>
+						</div>
+						<div className="card-footer">
+							<span className="card-date">
+								{note.created_date.split("T")[0]}{" "}
+							</span>
+							<button
+								onClick={() => handleNoteDelete(note.note_id)}
+								className="delete-icon"
+							>
+								<FontAwesomeIcon icon={faTrash} />
+							</button>
+						</div>
 					</div>
-					<div className="card-footer">
-						<span className="card-date">
-							{note.created_date.split("T")[0]}{" "}
-						</span>
-						<button
-							onClick={() => handleNoteDelete(note.note_id)}
-							className="delete-icon"
-						>
-							<FontAwesomeIcon icon={faTrash} />
-						</button>
-					</div>
-				</div>
-			);
-		});
+				);
+			});
+		}
 	} else if (status === "failed") {
 		content = <p>{error}</p>;
 	}
