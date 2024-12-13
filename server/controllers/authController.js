@@ -60,7 +60,7 @@ export async function signup(req, res) {
 	// Get the user registration info from client
 	const { email, username, password, confirmPassword } = req.body;
 
-	// Check if the password and confirm password matches
+	// Return error if password did not match
 	if (password !== confirmPassword)
 		return res.status(400).json("Password did not match");
 
