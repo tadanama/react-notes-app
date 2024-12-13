@@ -44,7 +44,7 @@ export const updateNote = async (req, res) => {
 	const { noteId } = req.params;
 
 	// Get the note info to update
-	const { title, text } = req.body;
+	const { title, text, date } = req.body;
 
 	// Check if the notes that we are trying to update exists
 	try {
@@ -63,8 +63,8 @@ export const updateNote = async (req, res) => {
 		// Update the notes to the database
 		try {
 			const result = await pool.query(
-				"UPDATE notes SET note_title = $1, note_text = $2, created_date = CURRENT_DATE WHERE note_id = $3 RETURNING *",
-				[title, text, noteId]
+				"UPDATE notes SET note_title = $1, note_text = $2, created_date = $3 WHERE note_id = $4 RETURNING *",
+				[title, text, date, noteId]
 			);
 			res.json(result.rows[0]);
 		} catch (error) {
