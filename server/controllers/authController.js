@@ -101,7 +101,7 @@ export async function signup(req, res) {
 
 			// Send refresh token as httponly cookie
 			// Cookie expiration should match with refresh token
-			res.cookie("jwt", refreshToken, { maxAge: 30000 });
+			res.cookie("jwt", refreshToken, { httpOnly: true, maxAge: 30000 });
 
 			// Send access token as json response
 			return res.json({ accessToken });
