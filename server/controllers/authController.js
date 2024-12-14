@@ -66,13 +66,13 @@ export async function register(req, res) {
 
 	// Check if email exist in database
 	try {
-		const foundEmail = await pool.query(
+		const foundUser = await pool.query(
 			"SELECT * FROM users WHERE email = $1",
 			[email]
 		);
 
 		// Return error if email already exist
-		if (foundEmail.rowCount !== 0)
+		if (foundUser.rowCount !== 0)
 			return res.status(400).json("Invalid EMAIL or password");
 
 		// Encrypt the user password
