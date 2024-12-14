@@ -56,7 +56,7 @@ export async function login(req, res) {
 }
 
 // Signup controller
-export async function signup(req, res) {
+export async function register(req, res) {
 	// Get the user registration info from client
 	const { email, username, password, confirmPassword } = req.body;
 
