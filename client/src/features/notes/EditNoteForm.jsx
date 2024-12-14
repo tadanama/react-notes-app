@@ -21,8 +21,8 @@ function EditNoteForm() {
 	const singleNote = notes.find((note) => note.note_id === noteId);
 
 	// Define the state for the inputs
-	const [title, setTitle] = useState(singleNote.note_title);
-	const [text, setText] = useState(singleNote.note_text);
+	const [title, setTitle] = useState(singleNote?.note_title);
+	const [text, setText] = useState(singleNote?.note_text);
 
 	// Let react manage the state of the inputs
 	function handleTitleChange(event) {
