@@ -4,11 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 // Get all notes from database
 export const getNotes = async (req, res) => {
 	try {
-		const result = await pool.query("SELECT * FROM notes");
+		const result = await pool.query("SELECT * FROM notes WHERE user_id = $1", [
+			req.userId,
+		]);
 		console.log(result.rows);
 
 		// Send the all notes from database as response
-		res.json(result.rows);
+		return res.json(result.rows);
 	} catch (error) {
 		console.log(error);
 		res.sendStatus(500);
@@ -24,11 +26,10 @@ export const addNewNote = async (req, res) => {
 	const newNoteId = uuidv4();
 
 	// Send POST request
-	//TODO remove the hard coded id when authentication is implemented
 	try {
 		const result = await pool.query(
 			"INSERT INTO notes (note_id, note_title, note_text, created_date, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-			[newNoteId, title, text, date, "1"]
+			[newNoteId, title, text, date, req.userId]
 		);
 
 		// Send the newly created note
