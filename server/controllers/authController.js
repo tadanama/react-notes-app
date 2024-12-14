@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 
-import { pool } from "../db";
+import { pool } from "../db.js";
 
 // Enable the use of environment variables
-dotenv.config();
+// dotenv.config();
 
 // Login controller
 export async function login(req, res) {
@@ -45,7 +45,7 @@ export async function login(req, res) {
 			res.cookie("jwt", refreshToken, { httpOnly: true, maxAge: 30000 });
 
 			// Send the access token as json response
-			return res.status(201).json({ accessToken });
+			return res.status(200).json({ accessToken });
 		} else {
 			// Return error if password did not match
 			return res.status(400).json("Invalid email or PASSWORD");
@@ -67,7 +67,7 @@ export async function register(req, res) {
 	// Check if email exist in database
 	try {
 		const foundUser = await pool.query(
-			"SELECT * FROM users WHERE email = $1",
+			"SELECT * FROM users WHERE user_email = $1",
 			[email]
 		);
 
@@ -116,6 +116,11 @@ export async function register(req, res) {
 // Refresh controller
 export function refresh(req, res) {
 	// Get the cookies from the request object
+	// Parse the cookies as an object (done by cookieParser)
+	// {
+	// 		cookie1Name: 'cookie1Value',
+	// 		cookie2Name: 'cookie2Value',
+	// }
 	const cookies = req.cookies;
 
 	// Return error if no cookie with name 'jwt'
@@ -148,7 +153,7 @@ export function refresh(req, res) {
 				const userInfo = {
 					id: foundUser.rows[0].user_id,
 					email: foundUser.rows[0].user_email,
-					username: decodefoundUser.rows[0].username,
+					username: foundUser.rows[0].username,
 				};
 
 				// Generate a new access token and send as json response
@@ -175,6 +180,7 @@ export function logout(req, res) {
 	// Clear the refresh token cookie
 	// Must pass same options when creating cookie
 	res.clearCookie("jwt", { httpOnly: true });
+	res.json("Cookie cleared");
 }
 
 // Helper function to generate access token
