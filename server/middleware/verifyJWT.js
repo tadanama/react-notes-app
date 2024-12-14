@@ -6,7 +6,7 @@ export function verifyJWT(req, res, next) {
 	const authHeader = req.headers.Authorization || req.headers.authorization;
 
 	// Return error if there is no authorization header that starts with Bearer
-	if (!authHeader.startsWith("Bearer "))
+	if (!authHeader?.startsWith("Bearer "))
 		return res.status(401).json("Unauthorized");
 
 	// Authorization header is in the format of "Bearer <token>"
@@ -14,20 +14,16 @@ export function verifyJWT(req, res, next) {
 	const accessToken = authHeader.split(" ")[1];
 
 	// Verify the access token
-	jwt.verify(
-		accessToken,
-		process.env.REFRESH_SECRET_TOKEN,
-		(error, decoded) => {
-			// Return error if token is invalid
-			if (error) return res.status(403).json("Forbidden");
+	jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+		// Return error if token is invalid
+		if (error) return res.status(403).json("Forbidden");
 
-			// Set the dynamic property
-			req.userId = decoded.id;
-			req.userEmail = decoded.email;
-			req.username = decoded.username;
+		// Set the dynamic property
+		req.userId = decoded.id;
+		req.userEmail = decoded.email;
+		req.username = decoded.username;
 
-			// Pass the control to the next controller/middleware
-			next();
-		}
-	);
+		// Pass the control to the next controller/middleware
+		next();
+	});
 }
