@@ -2,6 +2,7 @@ import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // Allow request from frontend
 app.use(cors());
+
+// Parse cookies easily
+app.use(cookieParser());
 
 // Handles all request made to /notes endpoint
 app.use("/notes", notesRoutes);
