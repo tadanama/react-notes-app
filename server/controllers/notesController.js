@@ -4,9 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 // Get all notes from database
 export const getNotes = async (req, res) => {
 	try {
-		const result = await pool.query("SELECT * FROM notes WHERE user_id = $1", [
-			req.userId,
-		]);
+		const result = await pool.query("SELECT * FROM notes");
 		console.log(result.rows);
 
 		// Send the all notes from database as response
@@ -28,8 +26,8 @@ export const addNewNote = async (req, res) => {
 	// Send POST request
 	try {
 		const result = await pool.query(
-			"INSERT INTO notes (note_id, note_title, note_text, created_date, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-			[newNoteId, title, text, date, req.userId]
+			"INSERT INTO notes (note_id, note_title, note_text, created_date) VALUES ($1, $2, $3, $4) RETURNING *",
+			[newNoteId, title, text, date]
 		);
 
 		// Send the newly created note
