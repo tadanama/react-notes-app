@@ -10,7 +10,7 @@ import { verifyJWT } from "../middleware/verifyJWT.js";
 // Instantiate router
 const router = Router();
 
-router.use(verifyJWT);
+// router.use(verifyJWT);
 
 // Route to get all notes
 router.get("/", getNotes);
